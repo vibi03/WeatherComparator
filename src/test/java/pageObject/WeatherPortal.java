@@ -27,11 +27,13 @@ public class WeatherPortal {
 	private final static String city_Checkbox="//input[@id='City']";
 	private final static String weatherDetailsSection="//div[@title='City']";
 	private static List<String> weatherInformation;
+	private static String city;
 	
 	public static void searchAndSelectCity(String location) {
 		
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, WeatherPortal.class);
+		city=location;
 		ElementActions.enterValue(city_SearchBox,location);
 		Assert.assertEquals("Check City Label is visible", true, Waits.fluentWaitForElement(city_Label.replace("City", location)));
 		System.out.println("Entered location");
@@ -40,11 +42,11 @@ public class WeatherPortal {
 		System.out.println("clicked check box");
 	}
 	
-	public static void retrieveWeatherDetails(String location) {
+	public static void retrieveWeatherDetails() {
 		try {
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, WeatherPortal.class);
-		ElementActions.clickElement_JSExecutor(weatherDetailsSection.replace("City", location));
+		ElementActions.clickElement_JSExecutor(weatherDetailsSection.replace("City", city));
 		weatherInformation= new ArrayList<>();
 		
 		for(int i=0;i<completeWeatherDetails.size();i++) {

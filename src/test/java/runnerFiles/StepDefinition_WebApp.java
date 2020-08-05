@@ -13,18 +13,19 @@ import pageObject.LaunchURL;
 import pageObject.WeatherPortal;
 import utilities.BrowserFactory;
 
-public class StepDefinition {
+public class StepDefinition_WebApp {
 
 	@Before
-	public void initialize(Scenario scenario) throws IOException
+	public void initialize(Scenario scenario) 
 	{
-		System.out.println("Scenario name is - "+scenario.getName());
-		BrowserFactory.setWebDriver();
+		System.out.println("Scenario name is -- "+scenario.getName());
+		
 	}
 	
 	@Given("User able to launch NDTV website")
 	public void launchWebsite() throws IOException
 	{
+		BrowserFactory.setWebDriver();
 		LaunchURL.launchNDTV();
 		
 	}
@@ -42,13 +43,18 @@ public class StepDefinition {
 	public void enterLocation(String location)
 	{
 		WeatherPortal.searchAndSelectCity(location);
-		WeatherPortal.retrieveWeatherDetails(location);
+		
 	}
 	
+	@Then("Weather details should get displayed")
+	public void getWeatherDetails()
+	{
+		WeatherPortal.retrieveWeatherDetails();
+		BrowserFactory.closeWebDriver();
+	}
 	@After
 	  public void afterMethod(Scenario scenario) throws IOException { 
 					  
-		//BrowserFactory.closeWebDriver();
 					System.out.println(
 					  "-------------------------------------------------------------------------------"
 					  ); System.out.println(scenario.getName()+" :-----" + scenario.getStatus());
