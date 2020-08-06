@@ -5,6 +5,7 @@ import java.io.IOException;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -30,7 +31,7 @@ public class StepDefinition_WebApp {
 		
 	}
 	
-	@Then("Navigate to weather section")
+	@And("Navigate to weather section")
 	public void navigateWeatherSection()
 	{
 		HomePage.verifyHomePage();
@@ -50,8 +51,16 @@ public class StepDefinition_WebApp {
 	public void getWeatherDetails()
 	{
 		WeatherPortal.retrieveWeatherDetails();
+		
+	}
+	
+	@And("Save temperature details in external file")
+	public void saveTemperature() throws IOException
+	{
+		WeatherPortal.saveTemperatureDetails();
 		BrowserFactory.closeWebDriver();
 	}
+	
 	@After
 	  public void afterMethod(Scenario scenario) throws IOException { 
 					  

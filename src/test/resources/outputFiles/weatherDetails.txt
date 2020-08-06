@@ -1,0 +1,5 @@
+Condition : Overcast
+Wind: 7.34 KPH Gusting to 9.48 KPH
+Humidity: 72%
+Temp in Degrees: 27
+Temp in Fahrenheit: 81

@@ -1,5 +1,6 @@
 package pageObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import utilities.BrowserFactory;
 import utilities.ElementActions;
+import utilities.FileHandlers;
 import utilities.Waits;
 
 public class WeatherPortal {
@@ -47,6 +49,7 @@ public class WeatherPortal {
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, WeatherPortal.class);
 		ElementActions.clickElement_JSExecutor(weatherDetailsSection.replace("City", city));
+		
 		weatherInformation= new ArrayList<>();
 		
 		for(int i=0;i<completeWeatherDetails.size();i++) {
@@ -57,5 +60,11 @@ public class WeatherPortal {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void saveTemperatureDetails() throws IOException {
+		
+		FileHandlers.writeToFile(weatherInformation);
+		
 	}
 }

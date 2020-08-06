@@ -1,23 +1,27 @@
 package functional;
 
 
-import io.cucumber.datatable.DataTable;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import utilities.PropertyReader;
 import utilities.ProtocolEnum;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 import org.junit.Assert;
+
+import com.github.fge.jsonschema.SchemaVersion;
+import com.github.fge.jsonschema.cfg.ValidationConfiguration;
+import com.github.fge.jsonschema.main.JsonSchemaFactory;
 
 public class RestRequestGenerator {
 	
 	private static RequestSpecification request;
 	private static Response response;
 	private static String serviceName;
+	protected static double nodeValue;
 	
 	public static void setServiceName(String serviceLabel) {
 		
@@ -55,16 +59,25 @@ public class RestRequestGenerator {
 	   
 	}
 
-	public static void checkNodes(DataTable value) 
+	public static void checkNode(String node) 
 	{		
-		List<Map<String, String>> data = value.asMaps(String.class, String.class);
-		for(Map<String, String>map:data)
+		
+		try
 		{
-			if(map.get("status").equalsIgnoreCase("NotNull"))
-			{
-				Assert.assertEquals(true, !(response.jsonPath().get("nlp_result").equals(null)));
-			}
+
+			nodeValue=response.jsonPath().getDouble("main."+node);
+			System.out.println("Node value - "+nodeValue);
 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+			
+	}
+	
+	public static int getNodeValue()
+	{
+		return (int)nodeValue;
 	}
 
 	public static void verifyStatus(String statusCode) 
@@ -73,7 +86,24 @@ public class RestRequestGenerator {
 				
 	}
 
+	public static void validateResponce()
+	{
+		try
+		{
+		JsonSchemaFactory jsonSchemaFactory = JsonSchemaFactory.newBuilder()
+			      .setValidationConfiguration(
+			        ValidationConfiguration.newBuilder()
+			          .setDefaultVersion(SchemaVersion.DRAFTV4).freeze())
+			            .freeze();
+			    response.then().assertThat()
+			      .body(matchesJsonSchemaInClasspath("WeatherResponseSchema.json")
+			        .using(jsonSchemaFactory));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	
-
 }

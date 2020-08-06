@@ -2,7 +2,9 @@ package runnerFiles;
 
 import java.io.IOException;
 
+import functional.Comparator;
 import functional.RestRequestGenerator;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -27,5 +29,23 @@ public class StepDefinition_API {
 	public void checkStatusCode(String statusCode)
 	{
 		RestRequestGenerator.verifyStatus(statusCode);
+	}
+	
+	@And("Check whether response has the node {string}")
+	public void verifyNodes(String node) throws NullPointerException
+	{
+		RestRequestGenerator.checkNode(node);
+	}
+	
+	@Then("Validate response with schema")
+	public void validateSchema() throws NullPointerException
+	{
+		RestRequestGenerator.validateResponce();
+	}
+	
+	@Then("Verify weather against weather from NDTV weather data")
+	public void weatherComparator() throws IOException,NumberFormatException
+	{
+		Comparator.compareWeather();
 	}
 }

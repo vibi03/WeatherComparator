@@ -19,7 +19,7 @@ protected static  WebDriver driver;
 		  options.addArguments("start-maximized");
 		  options.setPageLoadStrategy(PageLoadStrategy.NORMAL); 
 		  driver = new  ChromeDriver(options);
-		  driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
 	}
 	
