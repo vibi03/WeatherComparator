@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,7 +32,8 @@ public class WeatherPortal {
 	private static List<String> weatherInformation;
 	private static String city;
 	
-	public static void searchAndSelectCity(String location) {
+	/* Searches city passed from feature and select it in weather portal */
+	public static void searchAndSelectCity(String location) throws NoSuchElementException{
 		
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, WeatherPortal.class);
@@ -41,11 +43,14 @@ public class WeatherPortal {
 		System.out.println("Entered location");
 		
 		ElementActions.clickElement(city_Checkbox.replace("City", location));
-		System.out.println("clicked check box");
 	}
 	
-	public static void retrieveWeatherDetails() {
-		try {
+	/*
+	 * Clicks on the city name and retrives the weather details from the popup
+	 * division
+	 */
+	public static void retrieveWeatherDetails() throws NoSuchElementException{
+		
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, WeatherPortal.class);
 		ElementActions.clickElement_JSExecutor(weatherDetailsSection.replace("City", city));
@@ -56,12 +61,10 @@ public class WeatherPortal {
 			weatherInformation.add(ElementActions.getTextFromTextarea(completeWeatherDetails.get(i)));
 		}
 		System.out.println("Values- "+weatherInformation.toString());
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
+	/* Saves all the weather details into external text file */
 	public static void saveTemperatureDetails() throws IOException {
 		
 		FileHandlers.writeToFile(weatherInformation);

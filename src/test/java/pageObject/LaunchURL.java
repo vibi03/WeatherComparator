@@ -12,8 +12,12 @@ public class LaunchURL {
 
 	private static WebDriver driver;
 	
-	public static void launchNDTV() throws IOException {
-		
+	/*
+	 * Retrieves NDTV website URL from properties file and launches URL in chrome
+	 * browser
+	 */
+	public static void launchNDTV() throws IOException 
+	{	
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, LaunchURL.class);
 		driver.get(PropertyReader.readProperty("Configuration", "ndtvWebsiteURL"));

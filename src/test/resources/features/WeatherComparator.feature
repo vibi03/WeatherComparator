@@ -6,7 +6,8 @@ Feature: Compare weather information of particular location from UI and Rest-API
  And Navigate to weather section
  When User provide location as "Coimbatore" 
  Then Weather details should get displayed
- And Save temperature details in external file 
+ And Save temperature details in external file
+ Then Close the browser 
  
  @test
   Scenario Outline: Retreive weather information for any City using API

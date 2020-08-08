@@ -1,6 +1,7 @@
 package utilities;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,7 +16,8 @@ public class FileHandlers
 	private static File file;
 	private static String filePath;
 	
-	public static void writeToFile(List<String> weatherInformation) throws IOException
+	/* Creates new file, if not exists and writes weather data to the file */
+	public static void writeToFile(List<String> weatherInformation) throws IOException, FileNotFoundException
 	{
 		filePath=System.getProperty("user.dir")+PropertyReader.readProperty("Configuration", "filepath")+"weatherDetails.txt";
 		System.out.println("File Pathe- "+filePath); 
@@ -30,7 +32,8 @@ public class FileHandlers
 		writer.close();
 	}	
 	
-	public static List<String> readFile() throws IOException
+	/* Reads data from external file into a list of string */
+	public static List<String> readFile() throws IOException, FileNotFoundException
 	{
 	
 		List<String> fileData = Collections.emptyList();  

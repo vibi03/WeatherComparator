@@ -57,7 +57,12 @@ public class StepDefinition_WebApp {
 	@And("Save temperature details in external file")
 	public void saveTemperature() throws IOException
 	{
-		WeatherPortal.saveTemperatureDetails();
+		WeatherPortal.saveTemperatureDetails();	
+	}
+	
+	@Then("Close the browser")
+	public void closeBrowser()
+	{
 		BrowserFactory.closeWebDriver();
 	}
 	

@@ -15,6 +15,10 @@ public class Waits {
 
 	private static WebDriver driver;
 	
+	/*
+	 * Receives Webelement and waits for element to be visible till given span of
+	 * time
+	 */
 	public static boolean fluentWaitForElement(WebElement element)
 	{
 		try
@@ -39,6 +43,40 @@ public class Waits {
 		
 	}
 	
+
+	/*
+	 * Receives Webelement and waits for element to be visible and clickable till
+	 * given span of time
+	 */
+	public static boolean fluentWaitForElementToBeClickable(WebElement element)
+	{
+		try
+		{
+			driver = BrowserFactory.getWebDriver();
+			
+			 Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				       .withTimeout(Duration.ofSeconds(20))
+				       .pollingEvery(Duration.ofSeconds(2))
+				       .ignoring(NoSuchElementException.class)
+				       .ignoring(ElementNotVisibleException.class)
+				       .ignoring(StaleElementReferenceException.class);
+			wait.until(ExpectedConditions.visibilityOf(element));
+			wait.until(ExpectedConditions.elementToBeClickable(element));
+			return true;
+			
+		}catch(Exception e)
+		{
+			System.out.println("Element not found");
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	/*
+	 * Receives xpath of element and waits for element to be visible and clickable till
+	 * given span of time
+	 */
 	public static boolean fluentWaitForElement(String xpath)
 	{
 		try

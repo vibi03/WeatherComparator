@@ -11,6 +11,10 @@ public class BrowserFactory {
 
 protected static  WebDriver driver;
 	
+	/*
+	 * Sets driver to chrome driver instance using Webdriver manager,
+	 * Sets chrome options like maximizing at browser startup sets, implicit wait time
+	 */
 	public static void setWebDriver() 
 	{
 		
@@ -23,12 +27,14 @@ protected static  WebDriver driver;
 		
 	}
 	
+	/* Returns driver instance */
 	public static WebDriver getWebDriver()
 	{
 		return driver;
 		
 	}
 	
+	/* closes current driver instance */
 	public static void closeWebDriver()
 	{
 		driver.close();

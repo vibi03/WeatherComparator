@@ -22,6 +22,7 @@ public class HomePage {
 	@FindBy(how=How.XPATH,using="//a[contains(text(),'WEATHER')]")
 	private static WebElement weatherSection;
 	
+	/* Retrives and verifies titile from home page */
 	public static void verifyHomePage() {
 		
 		driver=BrowserFactory.getWebDriver();
@@ -29,6 +30,7 @@ public class HomePage {
 		Assert.assertEquals("Verify Title of page",true, driver.getTitle().contains("NDTV"));
 	}
 
+	/* Rejects the alert notification thrown by NDTV home page */
 	public static void rejectAlertNotification() {
 		
 		driver=BrowserFactory.getWebDriver();
@@ -36,6 +38,7 @@ public class HomePage {
 		ElementActions.clickElement(alert_RejectButton);
 	}
 	
+	/* Opens sub menu option from the home page */ 
 	public static void openSubMenu(){
 		
 		driver=BrowserFactory.getWebDriver();
@@ -43,6 +46,7 @@ public class HomePage {
 		ElementActions.clickElement(subMenu);
 	}
 	
+	/* Opens Weather portal from home page using sub menu option */ 
 	public static void openWeatherSection() {
 		driver=BrowserFactory.getWebDriver();
 		PageFactory.initElements(driver, HomePage.class);
